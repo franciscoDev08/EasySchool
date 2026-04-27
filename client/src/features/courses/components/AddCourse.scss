@@ -1,0 +1,68 @@
+@use "../../../styles/main/variable.scss" as *;
+
+.layout__add-course {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100dvh - 50px);
+  width: 100%;
+  position: absolute;
+  z-index: 5;
+}
+
+.add-course {
+  color: $color-black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 400px;
+  max-width: 300px;
+  border-radius: 16px;
+  background-color: $color-white;
+  position: relative;
+  z-index: 10;
+
+  &__close {
+    font-size: 2rem;
+    transition: color 500ms;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  &__close:hover {
+    color: $color-red;
+  }
+
+  &__icon {
+    font-size: 6rem;
+  }
+
+  &__main-content {
+    display: flex;
+  }
+
+  &__label {
+    margin-top: 0.5rem;
+  }
+
+  &__inp {
+    margin: 0.2rem;
+    border: 1px solid $color-black;
+    border-radius: 30px;
+    padding: 0.5rem;
+    outline: none;
+  }
+
+  &__inp-submit {
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1.5rem;
+    border-radius: 30px;
+    padding: 0.8rem 1.2rem;
+    outline: none;
+    background-color: $color-tertiary;
+  }
+}

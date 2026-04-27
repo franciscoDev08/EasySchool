@@ -1,0 +1,16 @@
+@use "./variable" as *;
+
+@mixin button() {
+  color: $color-neutral-dark;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 0 10px 1px $color-primary;
+  background-color: $color-primary;
+  transition: box-shadow 500ms;
+
+  &:hover {
+    box-shadow: 0 0 15px 2px $color-primary;
+  }
+}

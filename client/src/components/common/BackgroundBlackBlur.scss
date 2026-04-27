@@ -1,0 +1,21 @@
+.background {
+  height: 100dvh;
+  width: 100%;
+  filter: blur(1px);
+  opacity: 0.9;
+  background-color: #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.background-height {
+  height: calc(100dvh - 50px);
+  width: 100%;
+  filter: blur(1px);
+  opacity: 0.9;
+  background-color: #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

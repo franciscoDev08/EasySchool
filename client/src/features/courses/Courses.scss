@@ -1,0 +1,41 @@
+@use "../../styles/main/variable.scss" as *;
+
+.courses {
+  height: calc(100dvh - 50px);
+  width: 100%;
+  position: relative;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 2.5rem 1.5rem;
+  }
+
+  &__title {
+    font-size: 3.5rem;
+    font-weight: 700;
+  }
+
+  &__btn-add-course {
+    color: $color-black;
+    font-size: 1.5rem;
+    font-weight: 600;
+    box-shadow: 0 0 5px 1px $color-primary;
+    padding: 1rem;
+    border-radius: 16px;
+    background-color: $color-primary;
+  }
+
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 1.5rem;
+  }
+
+  &__wave-svg {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+}

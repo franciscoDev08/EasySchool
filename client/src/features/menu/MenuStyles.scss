@@ -1,0 +1,55 @@
+@use "../../styles/main/variable.scss" as *;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  min-height: 50px;
+  box-shadow: 0 0 10px 0 $color-black;
+  background-color: $color-dark-gray;
+
+  &__logo {
+    width: 100%;
+    min-height: 40px;
+    max-width: 40px;
+    border-radius: 100%;
+  }
+
+  &__user-icon {
+    font-size: 2rem;
+  }
+}
+
+.sidebar {
+  font-size: 1rem;
+  height: calc(100dvh - 50px);
+  width: 100%;
+  max-width: 200px;
+  background-color: $color-dark-gray;
+
+  &__btn-nav {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1.2rem 1rem;
+    transition: background-color 1s;
+
+    span {
+      margin-right: 0.2rem;
+    }
+  }
+
+  &__btn-nav--home:hover {
+    background-color: $color-background-blue;
+  }
+
+  &__btn-nav--courses {
+    background-color: $color-background-blue;
+  }
+
+  &__btn-nav--account:hover {
+    background-color: $color-background-blue;
+  }
+}
