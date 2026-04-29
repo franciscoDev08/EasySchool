@@ -46,7 +46,7 @@ export const Sidebar = () => {
             Asistencia
           </NavLink>
           <NavLink
-            to="subjects"
+            to="../grades"
             className={({ isActive }) =>
               isActive
                 ? "sidebar__btn-nav sidebar__btn-nav--active"
@@ -59,13 +59,6 @@ export const Sidebar = () => {
             Calificaciones
           </NavLink>
         </nav>
-
-        <button className="sidebar__btn-nav sidebar__btn-nav--account">
-          <span>
-            <i className="bx bx-user-circle"></i>
-          </span>
-          Usuario
-        </button>
       </aside>
     </>
   );

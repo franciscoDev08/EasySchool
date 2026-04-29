@@ -1,0 +1,173 @@
+@import "../../../../styles/main/variable";
+
+.add-grades-modal {
+  color: $color-black;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $color-white;
+  padding: 30px;
+  border-radius: 12px;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  &__close {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: $color-black;
+    font-weight: bold;
+    transition: color 500ms;
+
+    &:hover {
+      color: $color-red;
+    }
+  }
+
+  &__categories {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__category-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 12px;
+    min-width: 140px;
+    background-color: #fcfcfc;
+  }
+
+  &__category-title {
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+    color: $color-blue-dark;
+  }
+
+  &__inputs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    label {
+      font-size: 12px;
+      margin-bottom: 5px;
+      color: $color-light-gray;
+    }
+
+    input {
+      width: 45px;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: center;
+      outline: none;
+
+      &:focus {
+        border-color: $color-tertiary;
+      }
+    }
+  }
+
+  &__input-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__delete-note {
+    background: none;
+    border: none;
+    color: $color-black;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 5px;
+    transition: color 500ms;
+
+    &:hover {
+      color: $color-red;
+    }
+  }
+
+  &__add-note-btn {
+    background-color: $color-black;
+    color: $color-white;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #333;
+    }
+  }
+
+  &__save-btn {
+    background-color: $color-tertiary;
+    color: $color-black;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__add-cat-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: $color-success;
+    color: $color-black;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-left: 10px;
+  }
+}

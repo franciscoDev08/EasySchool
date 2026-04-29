@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import "./Attendance.scss";
 
 export const Attendance = () => {
+  useEffect(() => {
+    const student = JSON.parse(localStorage.getItem("grades_student"));
+    console.log(student);
+  }, []);
   return (
     <>
       <main className="attendance">

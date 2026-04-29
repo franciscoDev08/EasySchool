@@ -1,28 +1,369 @@
+@import "../../styles/main/variable";
+
 .grades {
   width: 100%;
-  &__panel-header {
-    display: grid;
-    grid-template-columns:
-      40px 200px minmax(300px, 1fr)
-      100px 120px;
-  }
+  padding: 20px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - 50px);
 
-  &__marks {
-    text-align: center;
-  }
-
-  &__category {
+  &__header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    h2 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  }
+
+  &__attendance-btn {
+    background-color: #d15615;
+    color: $color-white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__csv-btn {
+    background-color: $color-success;
+    color: $color-black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 8px 1px $color-success;
+    transition: all 0.2s;
+
+    &:hover {
+      box-shadow: 0 0 10px 1px $color-success;
+      transform: scale(1.05);
+    }
+  }
+
+  &__trimesters {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__trimester-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid $color-white;
+    background: transparent;
+    color: $color-white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &.active {
+      background-color: $color-blue-dark;
+      color: $color-white;
+    }
+  }
+
+  &__add-category-btn {
+    background-color: $color-tertiary;
+    color: $color-black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 8px 1px $color-tertiary;
+    transition-property: transform box-shadow;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px 1px $color-tertiary;
+    }
+  }
+
+  &__panel {
+    color: $color-black;
+    background-color: $color-white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    max-height: 500px;
+    overflow: auto;
+  }
+
+  &__panel-header {
+    display: flex;
+    background-color: $color-blue-dark;
+    color: $color-white;
+    border-radius: 8px;
+    padding: 20px 20px;
+    font-weight: bold;
+    align-items: center;
+  }
+
+  &__student-list {
+    display: flex;
+    flex-direction: column;
   }
 
   &__student {
-    display: grid;
-    grid-template-columns: 40px 200px 1fr 100px 120px;
+    display: flex;
+    padding: 15px 20px;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
+  &__col-id {
+    width: 40px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  &__col-name {
+    width: 200px;
+    font-weight: 600;
+  }
+
+  &__marks,
+  &__marks-data {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__category,
   &__category-marks {
     display: flex;
+    list-style: none;
+    width: 100%;
     justify-content: space-around;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__mobile-nav {
+    display: none;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 10px;
+
+    &.hidden {
+      visibility: hidden;
+    }
+  }
+
+  &__cat-item {
+    text-align: center;
+    flex: 1;
+    font-size: 14px;
+  }
+
+  &__mark-item {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+
+  &__mark-pill-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &:hover .grades__delete-pill-btn {
+      display: flex;
+    }
+  }
+
+  &__delete-pill-btn {
+    display: none;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: $color-red;
+    color: white;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    font-size: 8px;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__mark-pill {
+    background-color: $color-blue-dark-3;
+    color: $color-white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    min-width: 28px;
+    text-align: center;
+    font-weight: bold;
+
+    &.empty {
+      background-color: #555;
+    }
+  }
+
+  &__col-actions {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__action-btn {
+    background: none;
+    border: none;
+    color: $color-blue-dark;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__delete-student-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 12px;
+    transition: color 0.3s;
+
+    &:hover {
+      color: $color-red;
+    }
+  }
+
+  &__empty-state {
+    text-align: center;
+    padding: 30px;
+    color: $color-light-gray;
+    font-style: italic;
+  }
+
+  &__add-student-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px 1px $color-black;
+    transition: box-shadow 500ms;
+    background-color: $color-background-blue;
+  }
+
+  &__add-student-form:hover {
+    box-shadow: 0 0 10px 1px $color-black;
+    background-color: $color-background-blue;
+  }
+
+  &__add-student-input {
+    flex: 1;
+    max-width: 300px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: $color-dark-gray;
+    color: $color-white;
+    outline: none;
+
+    &::placeholder {
+      color: #888;
+    }
+  }
+
+  &__add-student-submit {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background-color: $color-success;
+    color: $color-black;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__mobile-nav {
+      display: block;
+    }
+
+    &__col-id {
+      display: none;
+    }
+
+    &__col-name {
+      width: 100px;
+    }
+
+    &__cat-item,
+    &__mark-item {
+      display: none;
+
+      &.active-mobile {
+        display: flex;
+      }
+    }
+
+    &__panel-header {
+      padding: 10px;
+    }
+
+    &__student {
+      padding: 10px;
+    }
   }
 }
