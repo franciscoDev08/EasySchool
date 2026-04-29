@@ -1,0 +1,28 @@
+.grades {
+  width: 100%;
+  &__panel-header {
+    display: grid;
+    grid-template-columns:
+      40px 200px minmax(300px, 1fr)
+      100px 120px;
+  }
+
+  &__marks {
+    text-align: center;
+  }
+
+  &__category {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__student {
+    display: grid;
+    grid-template-columns: 40px 200px 1fr 100px 120px;
+  }
+
+  &__category-marks {
+    display: flex;
+    justify-content: space-around;
+  }
+}

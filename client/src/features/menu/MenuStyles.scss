@@ -34,22 +34,18 @@
     align-items: center;
     width: 100%;
     padding: 1.2rem 1rem;
-    transition: background-color 1s;
+    transition: background-color 600ms;
 
     span {
       margin-right: 0.2rem;
     }
   }
 
-  &__btn-nav--home:hover {
+  &__btn-nav:hover {
     background-color: $color-background-blue;
   }
 
-  &__btn-nav--courses {
-    background-color: $color-background-blue;
-  }
-
-  &__btn-nav--account:hover {
+  &__btn-nav--active {
     background-color: $color-background-blue;
   }
 }

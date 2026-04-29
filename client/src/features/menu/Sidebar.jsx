@@ -1,44 +1,63 @@
 import "./MenuStyles.scss";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const Sidebar = () => {
   return (
     <>
       <aside className="sidebar">
         <nav className="sidebar__nav">
-          <Link to="../" className="sidebar__btn-nav sidebar__btn-nav--home">
+          <NavLink
+            to="../../"
+            className={({ isActive }) =>
+              isActive
+                ? "sidebar__btn-nav sidebar__btn-nav--active"
+                : "sidebar__btn-nav "
+            }
+          >
             <span>
               <i className="bx bx-home-alt-2"></i>
             </span>
             Home
-          </Link>
-          <Link
-            to="courses"
-            className="sidebar__btn-nav sidebar__btn-nav--courses"
+          </NavLink>
+          <NavLink
+            to="../courses"
+            className={({ isActive }) =>
+              isActive
+                ? "sidebar__btn-nav sidebar__btn-nav--active"
+                : "sidebar__btn-nav "
+            }
           >
             <span>
               <i className="bx bx-home-alt-2"></i>
             </span>
             Cursos
-          </Link>
-          <Link
-            to="attendance"
-            className="sidebar__btn-nav sidebar__btn-nav--home"
+          </NavLink>
+          <NavLink
+            to="../attendance"
+            className={({ isActive }) =>
+              isActive
+                ? "sidebar__btn-nav sidebar__btn-nav--active"
+                : "sidebar__btn-nav "
+            }
           >
             <span>
               <i className="bx bx-home-alt-2"></i>
             </span>
             Asistencia
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="subjects"
-            className="sidebar__btn-nav sidebar__btn-nav--home"
+            className={({ isActive }) =>
+              isActive
+                ? "sidebar__btn-nav sidebar__btn-nav--active"
+                : "sidebar__btn-nav "
+            }
           >
             <span>
               <i className="bx bx-home-alt-2"></i>
             </span>
             Calificaciones
-          </Link>
+          </NavLink>
         </nav>
 
         <button className="sidebar__btn-nav sidebar__btn-nav--account">

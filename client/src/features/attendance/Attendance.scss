@@ -1,0 +1,82 @@
+@use "../../styles/main/variable.scss" as *;
+
+.attendance {
+  width: 100%;
+
+  &__header {
+    margin: 2.5rem 1.5rem;
+  }
+
+  &__title {
+    font-size: 3rem;
+  }
+
+  &__panel {
+    color: $color-black;
+    box-shadow: 0 0 10px 1px $color-black;
+    margin: 1rem;
+    border-radius: 16px;
+    background-color: $color-white;
+  }
+
+  &__panel-header {
+    color: $color-white;
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 40px 200px minmax(100px, 1fr) 200px;
+    text-align: center;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: $color-blue-dark;
+    position: relative;
+  }
+
+  &__week {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__btn-arrow-right {
+    font-size: 2rem;
+    padding: 0.2rem 1.2rem;
+    box-shadow: 0 0 5px 1px $color-dark-gray;
+    border-radius: 16px;
+    background-color: $color-dark-gray;
+    position: absolute;
+    top: -40px;
+  }
+
+  &__student {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 40px 200px 1fr 200px;
+    width: 100%;
+    text-align: center;
+    margin: 0 1rem;
+    padding: 0.4rem 0;
+  }
+
+  &__assis {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    min-width: 90px;
+    overflow: auto;
+  }
+
+  &__day {
+    text-align: center;
+    font-weight: 600;
+  }
+
+  &__select {
+    cursor: pointer;
+    text-align: center;
+    padding: 0.4rem 1.2rem;
+    border-radius: 30px;
+    background-color: $color-blue-dark-3;
+  }
+}
