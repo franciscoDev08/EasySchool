@@ -7,15 +7,9 @@ export const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/preceptor">
-        <Route path="courses" element={<Dashboard type="courses" />} />
-        <Route path="attendance" element={<Dashboard type="attendance" />} />
-      </Route>
-      <Route path="/teacher">
-        <Route path="courses" element={<Dashboard type="courses" />} />
-        <Route path="attendance" element={<Dashboard type="attendance" />} />
-        <Route path="grades" element={<Dashboard type="grades" />} />
-      </Route>
+      <Route path="/courses" element={<Dashboard type="courses" />} />
+      <Route path="/attendance" element={<Dashboard type="attendance" />} />
+      <Route path="grades" element={<Dashboard type="grades" />} />
     </Routes>
   );
 };

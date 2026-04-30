@@ -12,26 +12,15 @@ export const Home = () => {
           <header className="home__header">
             <h1 className="home__title">
               Bienvenido a <br />
-              title
+              EasySchool
             </h1>
-            <h2 className="home__sub-title">Elige tu usuario</h2>
           </header>
 
           <div className="home__roles">
-            <Link className="home__btn-roles" to="personal">
-              Personal de <br /> la institución
-            </Link>
-            <Link className="home__btn-roles" to="parent">
-              Padre
+            <Link className="home__btn-web" to="/courses">
+              Ir a la aplicación
             </Link>
           </div>
-
-          {/* <Auth
-            features={{
-              type: "login",
-              role: "parent",
-            }}
-          /> */}
         </div>
       </main>
     </>

@@ -20,6 +20,16 @@
     }
   }
 
+  &__active-course-badge {
+    background-color: $color-success;
+    color: $color-black;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 0 8px 1px $color-success;
+  }
+
   &__attendance-btn {
     background-color: #d15615;
     color: $color-white;

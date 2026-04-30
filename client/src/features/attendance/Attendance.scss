@@ -5,10 +5,47 @@
 
   &__header {
     margin: 2.5rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  &__header-titles {
+    display: flex;
+    flex-direction: column;
   }
 
   &__title {
     font-size: 3rem;
+  }
+
+  &__active-course-badge {
+    background-color: $color-success;
+    color: $color-black;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 0 8px 1px $color-success;
+  }
+
+  &__csv-btn {
+    background-color: $color-success;
+    color: $color-black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 8px 1px $color-success;
+    transition: all 0.2s;
+
+    &:hover {
+      box-shadow: 0 0 10px 1px $color-success;
+      transform: scale(1.05);
+    }
   }
 
   &__panel {
@@ -37,16 +74,43 @@
   &__week {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__btn-arrow {
+    display: flex;
+    position: absolute;
+    top: -30px;
+  }
+
+  &__btn-arrow-left,
+  &__btn-arrow-right {
+    font-size: 1.5rem;
+    padding: 0.2rem 1.2rem;
+    box-shadow: 0 0 5px 1px $color-dark-gray;
+    background-color: $color-dark-gray;
+    color: $color-white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__btn-arrow-left {
+    border-radius: 16px 0 0 16px;
   }
 
   &__btn-arrow-right {
-    font-size: 2rem;
-    padding: 0.2rem 1.2rem;
-    box-shadow: 0 0 5px 1px $color-dark-gray;
-    border-radius: 16px;
-    background-color: $color-dark-gray;
-    position: absolute;
-    top: -40px;
+    border-radius: 0 16px 16px 0;
+  }
+
+  &__student-list {
+    display: flex;
+    flex-direction: column;
   }
 
   &__student {
@@ -55,14 +119,18 @@
     grid-template-columns: 40px 200px 1fr 200px;
     width: 100%;
     text-align: center;
-    margin: 0 1rem;
-    padding: 0.4rem 0;
+    padding: 10px 1rem;
+    border-bottom: 1px solid #eee;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
   &__assis {
     display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
+    justify-content: space-around;
+    gap: 10px;
     min-width: 90px;
     overflow: auto;
   }
@@ -70,13 +138,217 @@
   &__day {
     text-align: center;
     font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
   }
 
   &__select {
     cursor: pointer;
     text-align: center;
-    padding: 0.4rem 1.2rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 30px;
     background-color: $color-blue-dark-3;
+    color: $color-white;
+    border: none;
+  }
+
+  &__empty-state {
+    text-align: center;
+    padding: 30px;
+    color: $color-light-gray;
+    font-style: italic;
+  }
+
+  &__col-actions {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__more-info-btn {
+    background: none;
+    border: none;
+    color: $color-blue-dark;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__delete-student-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.3s;
+
+    &:hover {
+      color: $color-red;
+    }
+  }
+
+  &__add-student-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px 1px $color-black;
+    transition: box-shadow 500ms;
+    background-color: $color-background-blue;
+    margin: 1rem;
+  }
+
+  &__add-student-form:hover {
+    box-shadow: 0 0 10px 1px $color-black;
+  }
+
+  &__add-student-input {
+    flex: 1;
+    max-width: 300px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: $color-dark-gray;
+    color: $color-white;
+    outline: none;
+
+    &::placeholder {
+      color: #888;
+    }
+  }
+
+  &__add-student-submit {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background-color: $color-success;
+    color: $color-black;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  /* Modal */
+  &__modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  &__modal-content {
+    background-size: cover;
+    background-position: center;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 20px;
+    position: relative;
+    padding: 30px;
+    color: $color-white;
+    box-shadow: 0 0 20px 2px rgba(255, 140, 0, 0.4);
+    border: 2px solid rgba(255, 140, 0, 0.8);
+  }
+
+  &__modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: $color-white;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  &__modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__modal-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  &__modal-course {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #ffdcb0;
+  }
+
+  &__modal-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  &__modal-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 16px;
+    font-weight: 500;
+
+    .attendance__modal-stat-bar {
+      height: 25px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+
+      &.absences {
+        background-color: rgba(17, 50, 75, 0.9);
+        width: 100%;
+      }
+
+      &.tardies {
+        background-color: rgba(17, 50, 75, 0.9);
+        width: 70%;
+        margin-left: auto;
+      }
+    }
+  }
+
+  &__modal-send-msg {
+    background-color: #e57028;
+    color: $color-white;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      background-color: #cf601f;
+    }
   }
 }

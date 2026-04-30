@@ -1,21 +1,32 @@
+import { useState } from "react";
 import "./Courses.scss";
 import { Link } from "react-router-dom";
 import { AddCourse } from "./components/AddCourse.jsx";
 import { CourseCard } from "./components/CourseCard.jsx";
+import { useSchool } from "../../context/SchoolContext.jsx";
 
 export const Courses = () => {
+  const { courses } = useSchool();
+  const [isAddCourseOpen, setIsAddCourseOpen] = useState(false);
+
   return (
     <>
       <main className="courses">
-        {/* <AddCourse /> */}
+        {isAddCourseOpen && <AddCourse onClose={() => setIsAddCourseOpen(false)} />}
 
         <header className="courses__header">
           <h2 className="courses__title">Cursos</h2>
-          <button className="courses__btn-add-course">Agregar curso</button>
+          <button
+            className="courses__btn-add-course"
+            onClick={() => setIsAddCourseOpen(true)}
+          >
+            Agregar curso
+          </button>
         </header>
         <section className="courses__container">
-          {/* Para crear cards de cursos */}
-          <CourseCard />
+          {courses.map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
         </section>
 
         <svg

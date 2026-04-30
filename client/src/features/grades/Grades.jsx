@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { AddCategoryModal } from "./components/AddCategoryModal/AddCategoryModal";
 import { AddGradesModal } from "./components/AddGradesModal/AddGradesModal";
 import "./Grades.scss";
+import { useSchool } from "../../context/SchoolContext.jsx";
 
 export const Grades = () => {
+  const { activeCourse, activeCourseStudents: students, addStudent, deleteStudent, updateStudentGrades, activeCourseId } = useSchool();
+
   const [categories, setCategories] = useState(() => {
     const saved = localStorage.getItem("grades_categories");
     return saved
@@ -15,20 +18,11 @@ export const Grades = () => {
         ];
   });
 
-  const [students, setStudents] = useState(() => {
-    const saved = localStorage.getItem("grades_students");
-    return saved ? JSON.parse(saved) : [];
-  });
-
   const [newStudentName, setNewStudentName] = useState("");
 
   useEffect(() => {
     localStorage.setItem("grades_categories", JSON.stringify(categories));
   }, [categories]);
-
-  useEffect(() => {
-    localStorage.setItem("grades_students", JSON.stringify(students));
-  }, [students]);
 
   const [currentTrimester, setCurrentTrimester] = useState(1);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
@@ -43,7 +37,7 @@ export const Grades = () => {
       "Cuatrimestre",
       ...categories.map((c) => c.title),
     ];
-    let csvRows = [headers.join(",")];
+    let csvRows = [headers.join(";")]; // Use semicolon for Excel compatibility
 
     students.forEach((student) => {
       [1, 2].forEach((trim) => {
@@ -52,7 +46,7 @@ export const Grades = () => {
           const marks = student.gradesByTrimester[trim]?.[cat.id] || [];
           row.push(`"${marks.join(" - ")}"`);
         });
-        csvRows.push(row.join(","));
+        csvRows.push(row.join(";"));
       });
     });
 
@@ -72,40 +66,18 @@ export const Grades = () => {
   const handleSaveCategories = (newCategories) => {
     setCategories(newCategories);
     setIsCategoryModalOpen(false);
-
-    const existingCatIds = new Set(newCategories.map((c) => c.id));
-    setStudents((prev) =>
-      prev.map((student) => {
-        const newGradesByTrim = {
-          1: { ...student.gradesByTrimester[1] },
-          2: { ...student.gradesByTrimester[2] },
-        };
-        [1, 2].forEach((trim) => {
-          Object.keys(newGradesByTrim[trim]).forEach((catId) => {
-            if (!existingCatIds.has(catId)) {
-              delete newGradesByTrim[trim][catId];
-            }
-          });
-        });
-        return { ...student, gradesByTrimester: newGradesByTrim };
-      }),
-    );
+    // Note: removing grades for deleted categories might need a Context function if desired.
   };
 
   const handleDeleteStudent = (studentId) => {
-    setStudents((prev) => prev.filter((s) => s.id !== studentId));
+    deleteStudent(studentId);
   };
 
   const handleAddStudent = (e) => {
     e.preventDefault();
-    if (!newStudentName.trim()) return;
+    if (!newStudentName.trim() || !activeCourseId) return;
 
-    const newStudent = {
-      id: Date.now(),
-      name: newStudentName.trim(),
-      gradesByTrimester: { 1: {}, 2: {} },
-    };
-    setStudents([...students, newStudent]);
+    addStudent(activeCourseId, newStudentName.trim());
     setNewStudentName("");
   };
 
@@ -115,44 +87,24 @@ export const Grades = () => {
     catId,
     markIndex,
   ) => {
-    setStudents((prev) =>
-      prev.map((student) => {
-        if (student.id === studentId) {
-          const catMarks = [
-            ...(student.gradesByTrimester[trimester]?.[catId] || []),
-          ];
-          catMarks.splice(markIndex, 1);
-          return {
-            ...student,
-            gradesByTrimester: {
-              ...student.gradesByTrimester,
-              [trimester]: {
-                ...student.gradesByTrimester[trimester],
-                [catId]: catMarks,
-              },
-            },
-          };
-        }
-        return student;
-      }),
-    );
+    const student = students.find((s) => s.id === studentId);
+    if (student) {
+      const catMarks = [
+        ...(student.gradesByTrimester[trimester]?.[catId] || []),
+      ];
+      catMarks.splice(markIndex, 1);
+      
+      const newGrades = {
+        ...student.gradesByTrimester[trimester],
+        [catId]: catMarks,
+      };
+      
+      updateStudentGrades(studentId, trimester, newGrades);
+    }
   };
 
   const handleSaveGrades = (studentId, trimester, newGrades) => {
-    setStudents(
-      students.map((student) => {
-        if (student.id === studentId) {
-          return {
-            ...student,
-            gradesByTrimester: {
-              ...student.gradesByTrimester,
-              [trimester]: newGrades,
-            },
-          };
-        }
-        return student;
-      }),
-    );
+    updateStudentGrades(studentId, trimester, newGrades);
     setIsGradesModalOpen(false);
   };
 
@@ -167,6 +119,11 @@ export const Grades = () => {
     <main className="grades">
       <header className="grades__header">
         <h2>Calificaciones</h2>
+        {activeCourse && (
+          <div className="grades__active-course-badge">
+            Estás en {activeCourse.year} {activeCourse.division} - {activeCourse.subject}
+          </div>
+        )}
       </header>
 
       <div className="grades__controls">
