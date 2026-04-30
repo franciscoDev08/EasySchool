@@ -1,7 +1,6 @@
 import "./Home.scss";
 import { BackgroundBlackBlur } from "../../components/common/BackgroundBlackBlur";
 import { Link } from "react-router-dom";
-import { Auth } from "../auth/Auth";
 import { DashboardPreceptor } from "../preceptor/DashboardPreceptor";
 
 export const Home = () => {
