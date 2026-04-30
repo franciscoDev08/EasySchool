@@ -55,16 +55,29 @@ export const SchoolProvider = ({ children }) => {
   };
 
   const addStudent = (courseId, name) => {
+    const defaultWeeks = {
+      1: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
+      2: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
+      3: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
+      4: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
+    };
+
     const newStudent = {
       id: Date.now().toString(),
       courseId,
       name,
       gradesByTrimester: { 1: {}, 2: {} },
-      attendanceByWeek: {
-        1: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
-        2: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
-        3: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
-        4: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
+      attendanceByMonth: {
+        "Marzo": { ...defaultWeeks },
+        "Abril": { ...defaultWeeks },
+        "Mayo": { ...defaultWeeks },
+        "Junio": { ...defaultWeeks },
+        "Julio": { ...defaultWeeks },
+        "Agosto": { ...defaultWeeks },
+        "Septiembre": { ...defaultWeeks },
+        "Octubre": { ...defaultWeeks },
+        "Noviembre": { ...defaultWeeks },
+        "Diciembre": { ...defaultWeeks },
       },
     };
     setStudents([...students, newStudent]);
@@ -90,22 +103,34 @@ export const SchoolProvider = ({ children }) => {
     );
   };
 
-  const updateStudentAttendance = (studentId, week, day, status) => {
+  const updateStudentAttendance = (studentId, month, week, day, status) => {
     setStudents(
-      students.map((s) =>
-        s.id === studentId
-          ? {
-              ...s,
-              attendanceByWeek: {
-                ...s.attendanceByWeek,
-                [week]: {
-                  ...s.attendanceByWeek[week],
-                  [day]: status,
-                },
+      students.map((s) => {
+        if (s.id !== studentId) return s;
+
+        // Ensure attendanceByMonth exists (migration)
+        const attendance = s.attendanceByMonth || { [month]: s.attendanceByWeek || {} };
+        const monthData = attendance[month] || {
+          1: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
+          2: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
+          3: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
+          4: { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" },
+        };
+
+        return {
+          ...s,
+          attendanceByMonth: {
+            ...attendance,
+            [month]: {
+              ...monthData,
+              [week]: {
+                ...monthData[week],
+                [day]: status,
               },
-            }
-          : s
-      )
+            },
+          },
+        };
+      })
     );
   };
 

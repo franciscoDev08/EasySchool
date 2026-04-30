@@ -1,10 +1,15 @@
 import "./MenuStyles.scss";
 import { NavLink } from "react-router-dom";
 
-export const Sidebar = () => {
+import { useState } from "react";
+
+export const Sidebar = ({ isOpen, onToggle }) => {
+
   return (
     <>
-      <aside className="sidebar">
+      <aside
+        className={`sidebar ${isOpen ? "sidebar--open" : "sidebar--closed"}`}
+      >
         <nav className="sidebar__nav">
           <NavLink
             to="../../"
@@ -28,7 +33,7 @@ export const Sidebar = () => {
             }
           >
             <span>
-              <i className="bx bx-home-alt-2"></i>
+              <i class="bx bx-building-house"></i>{" "}
             </span>
             Cursos
           </NavLink>
@@ -41,7 +46,7 @@ export const Sidebar = () => {
             }
           >
             <span>
-              <i className="bx bx-home-alt-2"></i>
+              <i class="bx bx-book"></i>{" "}
             </span>
             Asistencia
           </NavLink>
@@ -54,12 +59,15 @@ export const Sidebar = () => {
             }
           >
             <span>
-              <i className="bx bx-home-alt-2"></i>
+              <i class="bx bxs-star"></i>{" "}
             </span>
             Calificaciones
           </NavLink>
         </nav>
       </aside>
+      {isOpen && (
+        <div className="sidebar__overlay" onClick={onToggle}></div>
+      )}
     </>
   );
 };

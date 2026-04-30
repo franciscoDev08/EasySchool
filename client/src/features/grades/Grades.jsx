@@ -75,7 +75,11 @@ export const Grades = () => {
 
   const handleAddStudent = (e) => {
     e.preventDefault();
-    if (!newStudentName.trim() || !activeCourseId) return;
+    if (!activeCourseId) {
+      alert("Por favor, selecciona un curso antes de agregar estudiantes.");
+      return;
+    }
+    if (!newStudentName.trim()) return;
 
     addStudent(activeCourseId, newStudentName.trim());
     setNewStudentName("");
@@ -166,7 +170,7 @@ export const Grades = () => {
                 setActiveCategoryIndex((prev) => Math.max(0, prev - 1))
               }
             >
-              &lt;
+              <i className="bx bx-chevron-left"></i>
             </button>
             <ul className="grades__category">
               {categories.map((item, index) => (
@@ -186,7 +190,7 @@ export const Grades = () => {
                 )
               }
             >
-              &gt;
+              <i className="bx bx-chevron-right"></i>
             </button>
           </div>
           <p className="grades__col-actions">Actions</p>

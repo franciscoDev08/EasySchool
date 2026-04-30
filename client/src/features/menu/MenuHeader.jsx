@@ -1,15 +1,15 @@
 import "./MenuStyles.scss";
-import logo from "../../assets/images/4k-minimalist-wallpaper-1.jpg";
 
-export const MenuHeader = () => {
+export const MenuHeader = ({ isOpen, onToggle }) => {
   return (
     <>
       <header className="header">
-        <button className="header__btn-menu">
-          <i className="bx bx-menu"></i>
+        <button className="header__toggle" onClick={onToggle}>
+          <i className={isOpen ? "bx bx-menu-alt-right" : "bx bx-menu"}></i>
         </button>
-
-        <img src={logo} className="header__logo" alt="" />
+        <div className="header__brand">
+          <h1>EasySchool</h1>
+        </div>
       </header>
     </>
   );

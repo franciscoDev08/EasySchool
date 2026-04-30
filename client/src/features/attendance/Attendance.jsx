@@ -13,8 +13,14 @@ export const Attendance = () => {
     activeCourseId,
   } = useSchool();
   const [currentWeek, setCurrentWeek] = useState(1);
+  const [selectedMonth, setSelectedMonth] = useState("Marzo");
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [newStudentName, setNewStudentName] = useState("");
+
+  const months = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
 
   const days = ["L", "M", "Mi", "J", "V"];
 
@@ -27,7 +33,7 @@ export const Attendance = () => {
   };
 
   const handleAttendanceChange = (studentId, day, status) => {
-    updateStudentAttendance(studentId, currentWeek, day, status);
+    updateStudentAttendance(studentId, selectedMonth, currentWeek, day, status);
   };
 
   const handleDownloadCSV = () => {
@@ -35,8 +41,9 @@ export const Attendance = () => {
 
     students.forEach((student) => {
       const row = [`"${student.name}"`];
+      const monthData = student.attendanceByMonth?.[selectedMonth] || {};
       for (let w = 1; w <= 4; w++) {
-        const weekAtt = student.attendanceByWeek[w];
+        const weekAtt = monthData[w] || { L: "empty", M: "empty", Mi: "empty", J: "empty", V: "empty" };
         const statusStr = days.map((d) => `${d}:${weekAtt[d]}`).join(" ");
         row.push(`"${statusStr}"`);
       }
@@ -60,8 +67,10 @@ export const Attendance = () => {
     let absences = 0;
     let tardies = 0;
 
+    const monthData = student.attendanceByMonth?.[selectedMonth] || {};
+
     for (let w = 1; w <= 4; w++) {
-      const weekAtt = student.attendanceByWeek[w];
+      const weekAtt = monthData[w] || {};
       for (const day of days) {
         if (weekAtt[day] === "absent") absences += 1;
         if (weekAtt[day] === "late") tardies += 1;
@@ -72,7 +81,11 @@ export const Attendance = () => {
 
   const handleAddStudent = (e) => {
     e.preventDefault();
-    if (!newStudentName.trim() || !activeCourseId) return;
+    if (!activeCourseId) {
+      alert("Por favor, selecciona un curso antes de agregar estudiantes.");
+      return;
+    }
+    if (!newStudentName.trim()) return;
 
     addStudent(activeCourseId, newStudentName.trim());
     setNewStudentName("");
@@ -88,7 +101,17 @@ export const Attendance = () => {
         <header className="attendance__header">
           <div className="attendance__header-titles">
             <h2 className="attendance__title">Asistencia</h2>
-            <p className="attendance__month">Marzo</p>
+            <div className="attendance__month-selector">
+              <select 
+                value={selectedMonth} 
+                onChange={(e) => setSelectedMonth(e.target.value)}
+                className="attendance__month-select"
+              >
+                {months.map(m => (
+                  <option key={m} value={m}>{m}</option>
+                ))}
+              </select>
+            </div>
           </div>
           {activeCourse && (
             <div className="attendance__active-course-badge">
@@ -143,7 +166,7 @@ export const Attendance = () => {
                         id={`day-${student.id}-${day}`}
                         className="attendance__select"
                         value={
-                          student.attendanceByWeek[currentWeek]?.[day] ||
+                          student.attendanceByMonth?.[selectedMonth]?.[currentWeek]?.[day] ||
                           "empty"
                         }
                         onChange={(e) =>
