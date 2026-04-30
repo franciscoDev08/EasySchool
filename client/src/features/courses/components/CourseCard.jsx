@@ -16,6 +16,11 @@ export const CourseCard = ({ course }) => {
     deleteCourse(course.id);
   };
 
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    // To be implemented
+  };
+
   const courseStudents = students.filter((s) => s.courseId === course.id);
 
   return (
@@ -26,11 +31,16 @@ export const CourseCard = ({ course }) => {
         </h3>
         <p className="courses__subject">{course.subject}</p>
         <p className="courses__students-count">
-          {courseStudents.length}{" "}
-          {courseStudents.length === 1 ? "Estudiante" : "Estudiantes"}
+          {courseStudents.length} {courseStudents.length === 1 ? "Estudiante" : "Estudiantes"}
         </p>
 
         <div className="courses__actions">
+          <button
+            className="courses__btn-action courses__btn-action--edit"
+            onClick={handleEdit}
+          >
+            <i className="bx bx-pencil"></i>
+          </button>
           <button
             className="courses__btn-action courses__btn-action--trash"
             onClick={handleDelete}
