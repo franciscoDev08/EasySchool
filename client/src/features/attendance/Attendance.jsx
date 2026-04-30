@@ -206,7 +206,6 @@ export const Attendance = () => {
             <div
               className="attendance__modal-content"
               onClick={(e) => e.stopPropagation()}
-              style={{ backgroundImage: `url(${backgroundImage})` }}
             >
               <button
                 className="attendance__modal-close"
@@ -227,19 +226,13 @@ export const Attendance = () => {
                     <span>
                       Inasistencias: {calculateStats(selectedStudent).absences}
                     </span>
-                    <div className="attendance__modal-stat-bar absences"></div>
                   </div>
                   <div className="attendance__modal-stat">
                     <span>
                       Tardanzas: {calculateStats(selectedStudent).tardies}
                     </span>
-                    <div className="attendance__modal-stat-bar tardies"></div>
                   </div>
                 </div>
-
-                <button className="attendance__modal-send-msg">
-                  Enviar mensaje
-                </button>
               </div>
             </div>
           </div>

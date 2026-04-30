@@ -169,28 +169,35 @@
   }
 
   &__more-info-btn {
-    background: none;
+    color: $color-black;
+    padding: 0.6rem 0.8rem;
+    border-radius: 30px;
+    background-color: $color-primary;
+    box-shadow: 0 0 5px 1px $color-primary;
     border: none;
-    color: $color-blue-dark;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
+    transition-property: box-shadow transform;
+    transition-duration: 500ms;
+  }
 
-    &:hover {
-      text-decoration: underline;
-    }
+  &__more-info-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px 1px $color-primary;
   }
 
   &__delete-student-btn {
-    background: none;
-    border: none;
-    color: #ccc;
+    background-color: $color-red;
+    padding: 0.6rem 0.8rem;
+    border-radius: 50%;
+    color: $color-black;
     cursor: pointer;
     font-size: 14px;
-    transition: color 0.3s;
+    transition: box-shadow 500ms;
 
     &:hover {
-      color: $color-red;
+      box-shadow: 0 0 15px 1px $color-red;
     }
   }
 
@@ -261,16 +268,18 @@
   }
 
   &__modal-content {
+    color: $color-black;
     background-size: cover;
     background-position: center;
-    width: 90%;
-    max-width: 400px;
+    width: 100%;
+    max-width: 360px;
     border-radius: 20px;
     position: relative;
     padding: 30px;
-    color: $color-white;
-    box-shadow: 0 0 20px 2px rgba(255, 140, 0, 0.4);
-    border: 2px solid rgba(255, 140, 0, 0.8);
+    border-radius: 30px;
+    border: 1px solid $color-secundary;
+    box-shadow: 0 0 10px 1px $color-secundary;
+    background-image: url(../../assets/images/background-orange.png);
   }
 
   &__modal-close {
@@ -282,6 +291,12 @@
     color: $color-white;
     font-size: 24px;
     cursor: pointer;
+    color: $color-black;
+    transition: color 500ms;
+  }
+
+  &__modal-close:hover {
+    color: $color-red;
   }
 
   &__modal-body {
@@ -299,7 +314,7 @@
   &__modal-course {
     font-size: 16px;
     margin-bottom: 20px;
-    color: #ffdcb0;
+    color: $color-black;
   }
 
   &__modal-stats {
@@ -320,17 +335,6 @@
       height: 25px;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.3);
-
-      &.absences {
-        background-color: rgba(17, 50, 75, 0.9);
-        width: 100%;
-      }
-
-      &.tardies {
-        background-color: rgba(17, 50, 75, 0.9);
-        width: 70%;
-        margin-left: auto;
-      }
     }
   }
 
